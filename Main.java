@@ -7,5 +7,7 @@ public class Main {
 
         System.out.println(test);
 
+        int testA = 50;
+
     }
 }
