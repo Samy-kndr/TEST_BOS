@@ -9,5 +9,7 @@ public class Main {
 
         int testA = 25;
 
+        System.out.println("your lucky number is: " + testA );
+
     }
 }
