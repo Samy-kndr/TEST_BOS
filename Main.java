@@ -3,5 +3,9 @@ public class Main {
 
         System.out.println("Hello fucking World!");
 
+        String test = "this is a test";
+
+        System.out.println(test);
+
     }
 }
