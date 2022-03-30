@@ -1,7 +1,9 @@
 public class User {
 
-    String name;
-    int workingHours;
+    private String name;
+    private int workingHours;
+    private int overHours;
+
 
 
     public void setName(String name){
@@ -9,15 +11,22 @@ public class User {
     }
 
     public String getName(){
-        return this.name;
+        return name;
     }
 
-    public void setWorkingHours(int workingHours){
+    public void setWorkingHours(int workingHours) {
         this.workingHours = workingHours;
     }
 
     public int getWorkingHours(){
-        return this.workingHours;
+        return workingHours;
     }
 
+    public void setOverHours(int overHours){
+        this.overHours = overHours;
+    }
+
+    public int getOverHours() {
+        return overHours;
+    }
 }
