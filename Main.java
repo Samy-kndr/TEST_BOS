@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -12,7 +14,15 @@ public class Main {
         System.out.println("your lucky number is: " + testA );
         System.out.println("YAY");
 
-        User user = new User();
+        User user = new User("carlos");
+
+        int choice = JOptionPane.showConfirmDialog(null, "Do you want to log in?", "TEST LOGIN", JOptionPane.YES_NO_OPTION);
+
+        if(choice == 1){
+            System.out.println("ok"); // NO-option == 1
+        }else{
+            System.out.println("meh"); // YES-option == 0
+        }
 
 
     }

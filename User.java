@@ -4,6 +4,10 @@ public class User {
     private int workingHours;
     private int overHours;
 
+    User(String name){
+        this.name = name;
+    }
+
 
 
     public void setName(String name){
