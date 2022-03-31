@@ -12,5 +12,8 @@ public class Main {
         System.out.println("your lucky number is: " + testA );
         System.out.println("YAY");
 
+        User user = new User();
+
+
     }
 }
