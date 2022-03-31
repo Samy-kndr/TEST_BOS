@@ -16,13 +16,28 @@ public class Main {
 
         User user = new User("carlos");
 
-        int choice = JOptionPane.showConfirmDialog(null, "Do you want to log in?", "TEST LOGIN", JOptionPane.YES_NO_OPTION);
+        int choice = JOptionPane.showConfirmDialog(
+                null, "Do you want to log in?", "TEST LOGIN", JOptionPane.YES_NO_OPTION
+        );
+        // NO-option == 1; YES-option == 0
 
-        if(choice == 1){
-            System.out.println("ok"); // NO-option == 1
+
+        if(choice == 0){
+            // Yes-Option
+            String userName = JOptionPane.showInputDialog(
+                    null, "Please enter your name", "LOGIN", JOptionPane.INFORMATION_MESSAGE
+            );
+
+            user.setName(userName);
+
         }else{
-            System.out.println("meh"); // YES-option == 0
+            // NO-Option
+            JOptionPane.showInternalMessageDialog(
+                    null, "OK, Goodbye then!", "byebye", JOptionPane.INFORMATION_MESSAGE
+            );
         }
+
+        System.out.println("userName = " + user.getName());
 
 
     }
