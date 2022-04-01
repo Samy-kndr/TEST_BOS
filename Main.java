@@ -14,7 +14,7 @@ public class Main {
         System.out.println("your lucky number is: " + testA );
         System.out.println("YAY");
 
-        User user = new User("carlos");
+        User user = new User();
 
         int choice = JOptionPane.showConfirmDialog(
                 null, "Do you want to log in?", "TEST LOGIN", JOptionPane.YES_NO_OPTION
@@ -37,7 +37,17 @@ public class Main {
             );
         }
 
-        System.out.println("userName = " + user.getName());
+        if(user.getName() == null){
+            System.out.println("cancelled...");
+        }else{
+            System.out.println("userName = " + user.getName());
+
+            JOptionPane.showInternalMessageDialog(
+                    null, "Welcome, " + user.getName(), "WELCOME", JOptionPane.INFORMATION_MESSAGE
+            );
+
+        }
+
 
 
     }
