@@ -4,11 +4,13 @@ public class User {
     private int workingHours;
     private int overHours;
 
+    User(){}
+    
     User(String name){
         this.name = name;
     }
 
-    User(){};
+
 
 
 
