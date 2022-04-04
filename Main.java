@@ -17,7 +17,7 @@ public class Main {
         if(choice == 0){
             // YES-Option
             String userName = JOptionPane.showInputDialog(
-                    null, "Please enter your name", "LOGIN", JOptionPane.INFORMATION_MESSAGE
+                    null, "Please enter your name Motherfucker", "LOGIN", JOptionPane.INFORMATION_MESSAGE
             );
 
             user.setName(userName);
