@@ -11,9 +11,11 @@ public class Main {
         );
         // NO-option == 1; YES-option == 0
 
+        System.out.println(choice);
+
 
         if(choice == 0){
-            // Yes-Option
+            // YES-Option
             String userName = JOptionPane.showInputDialog(
                     null, "Please enter your name", "LOGIN", JOptionPane.INFORMATION_MESSAGE
             );
@@ -30,8 +32,6 @@ public class Main {
         if(user.getName() == null){
             System.out.println("cancelled...");
 
-            System.exit(0);
-
         }else{
             System.out.println("userName = " + user.getName());
 
@@ -39,10 +39,8 @@ public class Main {
                     null, "Welcome, " + user.getName(), "WELCOME", JOptionPane.INFORMATION_MESSAGE
             );
 
-            System.exit(0);
-
         }
-
+        System.exit(0);
 
 
     }
