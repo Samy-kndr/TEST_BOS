@@ -3,16 +3,6 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println("Hello fucking World!");
-
-        String test = "this is a test";
-
-        System.out.println(test);
-
-        int testA = 25;
-
-        System.out.println("your lucky number is: " + testA );
-        System.out.println("YAY");
 
         User user = new User();
 
@@ -39,12 +29,17 @@ public class Main {
 
         if(user.getName() == null){
             System.out.println("cancelled...");
+
+            System.exit(0);
+
         }else{
             System.out.println("userName = " + user.getName());
 
             JOptionPane.showInternalMessageDialog(
                     null, "Welcome, " + user.getName(), "WELCOME", JOptionPane.INFORMATION_MESSAGE
             );
+
+            System.exit(0);
 
         }
 
