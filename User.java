@@ -3,6 +3,8 @@ public class User {
     private String name;
     private int workingHours;
     private int overHours;
+    private long clockInTime;
+    private long clockOutTime;
 
     User(){}
 
@@ -14,6 +16,9 @@ public class User {
 
 
 
+
+
+    // getters and setters below -m
     public void setName(String name){
         this.name = name;
     }
@@ -36,5 +41,21 @@ public class User {
 
     public int getOverHours() {
         return overHours;
+    }
+
+    public long getClockInTime() {
+        return clockInTime;
+    }
+
+    public void setClockInTime(long clockInTime) {
+        this.clockInTime = clockInTime;
+    }
+
+    public long getClockOutTime() {
+        return clockOutTime;
+    }
+
+    public void setClockOutTime(long clockOutTime) {
+        this.clockOutTime = clockOutTime;
     }
 }

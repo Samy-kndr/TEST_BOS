@@ -40,6 +40,19 @@ public class Main {
             );
 
         }
+
+        user.setClockInTime(System.currentTimeMillis());
+
+        System.out.println("user ClockInTime: " + user.getClockInTime());
+
+        long hours = user.getClockInTime() / 3600000;
+
+        System.out.println("time in hours: " + hours);
+
+
+
+
+
         System.exit(0);
 
 
