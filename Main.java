@@ -1,4 +1,9 @@
 import javax.swing.*;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class Main {
     public static void main(String[] args) {
@@ -25,7 +30,7 @@ public class Main {
         }else{
             // NO-Option
             JOptionPane.showInternalMessageDialog(
-                    null, "OK, Goodbye then!", "byebye", JOptionPane.INFORMATION_MESSAGE
+                    null, "OK, Goodbye then!", "bye bye", JOptionPane.INFORMATION_MESSAGE
             );
         }
 
@@ -49,12 +54,32 @@ public class Main {
 
         System.out.println("time in hours: " + hours);
 
-
-
+        printObjectToJson(user, user.getName());
 
 
         System.exit(0);
 
 
     }
+
+    // saves given Object to a .json file that can be loaded again later -m
+    public static void printObjectToJson(Object object, String fileName){
+
+        System.out.println("Saving Object to " + fileName + ".json...");
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String jsonToSave = gson.toJson(object);
+
+        try{
+            PrintWriter writer = new PrintWriter(fileName + ".json", StandardCharsets.UTF_8);
+            writer.println(jsonToSave);
+            writer.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        System.out.println(fileName + ".json successfully saved!");
+
+    }
+
 }
