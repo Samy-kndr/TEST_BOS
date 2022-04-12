@@ -17,7 +17,10 @@ public class Main {
         Gson gson = new Gson(); // for handling saving and loading .json files -MF
 
         int choice = JOptionPane.showConfirmDialog(
-                null, "Do you want to log in?", "TEST LOGIN", JOptionPane.YES_NO_OPTION
+                null,
+                "Do you want to log in?",
+                "TEST LOGIN",
+                JOptionPane.YES_NO_OPTION
         );
         // NO-option == 1; YES-option == 0 -MF
 
@@ -27,7 +30,10 @@ public class Main {
         if(choice == 0){
             // YES-Option -MF
             String userName = JOptionPane.showInputDialog(
-                    null, "Please enter your name", "LOGIN", JOptionPane.INFORMATION_MESSAGE
+                    null,
+                    "Please enter your name",
+                    "LOGIN",
+                    JOptionPane.INFORMATION_MESSAGE
             );
 
             user.setName(userName);
@@ -35,7 +41,10 @@ public class Main {
         }else{
             // NO-Option -MF
             JOptionPane.showInternalMessageDialog(
-                    null, "OK, Goodbye then!", "bye bye", JOptionPane.INFORMATION_MESSAGE
+                    null,
+                    "OK, Goodbye then!",
+                    "bye bye",
+                    JOptionPane.INFORMATION_MESSAGE
             );
 
             System.exit(0);
@@ -43,12 +52,16 @@ public class Main {
 
         if(user.getName() == null){
             System.out.println("cancelled...");
+            System.exit(0);
 
         }else{
             System.out.println("userName = " + user.getName());
 
             JOptionPane.showInternalMessageDialog(
-                    null, "Welcome, " + user.getName(), "WELCOME", JOptionPane.INFORMATION_MESSAGE
+                    null,
+                    "Welcome, " + user.getName(),
+                    "WELCOME",
+                    JOptionPane.INFORMATION_MESSAGE
             );
 
         }
@@ -61,8 +74,11 @@ public class Main {
 
         Object selectedOption =
                 JOptionPane.showInputDialog(
-                        null, "What do you want to do?", "Options",
-                        JOptionPane.INFORMATION_MESSAGE, null, userOptions, userOptions[0]
+                        null,
+                        "What do you want to do?",
+                        "Options",
+                        JOptionPane.INFORMATION_MESSAGE,
+                        null, userOptions, userOptions[0]
                 );
 
         if(selectedOption == "Clock In"){
@@ -83,8 +99,6 @@ public class Main {
                             "Please don't forget to clock out before leaving work!",
                     "clocked in successfully",
                     JOptionPane.INFORMATION_MESSAGE);
-
-            System.exit(0);
 
         }else{
 
@@ -111,10 +125,8 @@ public class Main {
                             "You have worked " + workTimeDifference + " hours today!",
                     "clocked out successfully", JOptionPane.INFORMATION_MESSAGE);
 
-            System.exit(0);
-
         }
-
+        System.exit(0);
 
 
     }
@@ -148,7 +160,7 @@ public class Main {
     // ("pathname" is here the name of the file, because it is saved in the same folder as the program")
     // -MF
     public static String readJsonToString(String pathname){
-        String jsonToReturn = "";
+        StringBuilder jsonToReturn = new StringBuilder();
 
         try{
 
@@ -156,7 +168,7 @@ public class Main {
             Scanner reader = new Scanner(fileToRead);
 
             while(reader.hasNextLine()){
-                jsonToReturn = jsonToReturn + reader.nextLine();
+                jsonToReturn.append(reader.nextLine());
             }
 
         }catch(FileNotFoundException e){
@@ -166,7 +178,7 @@ public class Main {
 
         }
 
-        return jsonToReturn;
+        return jsonToReturn.toString();
     }
 
 }

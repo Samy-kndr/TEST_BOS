@@ -1,8 +1,8 @@
 public class User {
 
     private String name;
-    private int workingHours;
-    private int overHours;
+    private long workingHours;
+    private long overHours;
     private long clockInTime;
     private long clockOutTime;
 
@@ -27,19 +27,19 @@ public class User {
         return name;
     }
 
-    public void setWorkingHours(int workingHours) {
+    public void setWorkingHours(long workingHours) {
         this.workingHours = workingHours;
     }
 
-    public int getWorkingHours(){
+    public long getWorkingHours(){
         return workingHours;
     }
 
-    public void setOverHours(int overHours){
+    public void setOverHours(long overHours){
         this.overHours = overHours;
     }
 
-    public int getOverHours() {
+    public long getOverHours() {
         return overHours;
     }
 
