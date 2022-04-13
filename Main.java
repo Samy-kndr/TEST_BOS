@@ -14,21 +14,23 @@ public class Main {
 
         User user = new User();
 
-        Gson gson = new Gson(); // for handling saving and loading .json files -MF
+        Object[] loginRegisterChoice = {"Log In", "Register"};
 
-        int choice = JOptionPane.showConfirmDialog(
+        Object choice = JOptionPane.showInputDialog( // testing the choice between login and register -MF
                 null,
-                "Do you want to log in?",
-                "TEST LOGIN",
-                JOptionPane.YES_NO_OPTION
+                "What do you want to do?",
+                "TEST HOME SCREEN",
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                loginRegisterChoice,
+                loginRegisterChoice[0]
         );
-        // NO-option == 1; YES-option == 0 -MF
 
-        System.out.println(choice);
+        System.out.println("choice: " + choice);
 
 
-        if(choice == 0){
-            // YES-Option -MF
+        if(choice == "Log In"){
+            // Logging in with name -MF
             String userName = JOptionPane.showInputDialog(
                     null,
                     "Please enter your name",
@@ -38,8 +40,54 @@ public class Main {
 
             user.setName(userName);
 
+            if(checkUserAvailability(userName)){
+                // true == profile does not exist
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Sorry, that profile does not exist yet. \n" +
+                                "Please try registering",
+                        "profile does not exist",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+
+                System.exit(0);
+
+            }else{
+
+                user = loadUserFromJson(userName);
+
+            }
+
+        }else if(choice == "Register"){
+
+            String userName = JOptionPane.showInputDialog(
+                    null,
+                    "Please enter your name",
+                    "LOGIN",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+
+            user.setName(userName);
+
+            if(checkUserAvailability(user.getName())){
+
+                saveUserToJson(user);
+
+            }else{
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Sorry, a profile with that name already exists. \n" +
+                                "Please try logging in.",
+                        "profile already exists",
+                        JOptionPane.INFORMATION_MESSAGE
+                        );
+
+                System.exit(0);
+            }
+
+
         }else{
-            // NO-Option -MF
+            // selected "Cancel"-option -MF
             JOptionPane.showInternalMessageDialog(
                     null,
                     "OK, Goodbye then!",
@@ -81,7 +129,7 @@ public class Main {
                         null, userOptions, userOptions[0]
                 );
 
-        if(selectedOption == "Clock In"){
+        if(selectedOption == "Clock In"){ //clocking in -MF
 
             user.setClockInTime(System.currentTimeMillis());
 
@@ -91,7 +139,7 @@ public class Main {
 
             System.out.println("time in hours: " + hours);
 
-            printObjectToJson(user, user.getName());
+            saveUserToJson(user);
 
             JOptionPane.showInternalMessageDialog(
                     null,
@@ -100,12 +148,7 @@ public class Main {
                     "clocked in successfully",
                     JOptionPane.INFORMATION_MESSAGE);
 
-        }else{
-
-            String userName = user.getName();
-            String userJson = readJsonToString(userName);
-
-            user = gson.fromJson(userJson, User.class);
+        }else{ // clocking out -MF
 
             user.setClockOutTime(System.currentTimeMillis());
 
@@ -125,24 +168,31 @@ public class Main {
                             "You have worked " + workTimeDifference + " hours today!",
                     "clocked out successfully", JOptionPane.INFORMATION_MESSAGE);
 
+            user.setClockInTime(0);
+            user.setClockOutTime(0);
+            user.setWorkedHoursTotal(user.getWorkedHoursTotal() + workTimeDifference);
+
+            saveUserToJson(user);
+
         }
         System.exit(0);
 
 
     }
 
-    // saves given Object to a .json file that can be loaded again later
+    // saves given User Object to a .json file that can be loaded again later
     // -MF
-    public static void printObjectToJson(Object object, String fileName){
+    public static void saveUserToJson(User userToSave){
 
-        System.out.println("Saving Object to " + fileName + ".json...");
+        String userName = userToSave.getName();
+        System.out.println("Saving Object to " + userName + ".json...");
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String jsonToSave = gson.toJson(object);
+        String jsonToSave = gson.toJson(userToSave);
 
         try{
 
-            PrintWriter writer = new PrintWriter(fileName + ".json", StandardCharsets.UTF_8);
+            PrintWriter writer = new PrintWriter(userName + ".json", StandardCharsets.UTF_8);
             writer.println(jsonToSave);
             writer.close();
 
@@ -152,33 +202,57 @@ public class Main {
 
         }
 
-        System.out.println(fileName + ".json successfully saved!");
+        System.out.println(userName + ".json successfully saved!");
 
     }
 
-    // reads given Object from a .json file to a String value, so it can be loaded into an existing Object
-    // ("pathname" is here the name of the file, because it is saved in the same folder as the program")
+    // loads user profile from json file.
+    // returns null, if the file is not found.
     // -MF
-    public static String readJsonToString(String pathname){
-        StringBuilder jsonToReturn = new StringBuilder();
+    public static User loadUserFromJson(String userNameToLoad){
+        StringBuilder jsonToLoad = new StringBuilder();
+        User userToLoad = new User();
+        Gson gson = new Gson();
 
         try{
 
-            File fileToRead = new File(pathname + ".json");
+            File fileToRead = new File(userNameToLoad + ".json");
             Scanner reader = new Scanner(fileToRead);
 
             while(reader.hasNextLine()){
-                jsonToReturn.append(reader.nextLine());
+                jsonToLoad.append(reader.nextLine());
             }
+
+            userToLoad = gson.fromJson(jsonToLoad.toString(), User.class);
 
         }catch(FileNotFoundException e){
 
-            System.out.println(pathname + ".json was not found...");
+            System.out.println(userNameToLoad + ".json was not found...");
             e.printStackTrace();
+
+            return null;
 
         }
 
-        return jsonToReturn.toString();
+        return userToLoad;
+    }
+
+    // checking if the user profile is already saved as json file
+    // -> true: profile does not exist and is available; false: profile already exists and is therefore not available
+    public static boolean checkUserAvailability(String nameToCheck){
+
+        User checkUser = new User();
+
+        checkUser = loadUserFromJson(nameToCheck);
+
+        if(checkUser == null){
+            System.out.println(nameToCheck + ".json does not exist.");
+            return true;
+        }else{
+            return false;
+        }
+
+
     }
 
 }

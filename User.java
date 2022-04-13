@@ -2,6 +2,7 @@ public class User {
 
     private String name;
     private long workingHours;
+    private long workedHoursTotal;
     private long overHours;
     private long clockInTime;
     private long clockOutTime;
@@ -58,4 +59,13 @@ public class User {
     public void setClockOutTime(long clockOutTime) {
         this.clockOutTime = clockOutTime;
     }
+
+    public long getWorkedHoursTotal() {
+        return workedHoursTotal;
+    }
+
+    public void setWorkedHoursTotal(long workedHoursTotal) {
+        this.workedHoursTotal = workedHoursTotal;
+    }
+
 }
