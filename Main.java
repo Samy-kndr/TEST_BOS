@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import java.util.Scanner;
 
 import com.google.gson.Gson;
@@ -11,7 +12,7 @@ import com.google.gson.GsonBuilder;
 public class Main {
     public static void main(String[] args) {
 
-
+        int conf1 = 0;
         User user = new User();
 
         Object[] loginRegisterChoice = {"Log In", "Register"};
@@ -58,33 +59,58 @@ public class Main {
 
             }
 
-        }else if(choice == "Register"){
+        }else if(choice == "Register") {
 
-            String userName = JOptionPane.showInputDialog(
-                    null,
-                    "Please enter your name",
-                    "LOGIN",
-                    JOptionPane.INFORMATION_MESSAGE
-            );
+            do{
 
-            user.setName(userName);
-
-            if(checkUserAvailability(user.getName())){
-
-                saveUserToJson(user);
-
-            }else{
-                JOptionPane.showMessageDialog(
+                String userName = JOptionPane.showInputDialog(
                         null,
-                        "Sorry, a profile with that name already exists. \n" +
-                                "Please try logging in.",
-                        "profile already exists",
+                        "Please enter your name",
+                        "LOGIN",
                         JOptionPane.INFORMATION_MESSAGE
+                );
+
+                user.setName(userName);
+
+                if (checkUserAvailability(user.getName())) {
+
+                    // Confirmation - SK
+                    String userconf = JOptionPane.showInputDialog(
+                            null,
+                            "Please enter your name again",
+                            "Confirmation",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+
+                    System.out.println(userconf);
+
+                    if (Objects.equals(userName, userconf)) {
+                        saveUserToJson(user);
+                        conf1 = 1;
+                    } else {
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "Names don´t match \n" +
+                                        "Plese try again",
+                                "Confirmation Fail",
+                                JOptionPane.INFORMATION_MESSAGE
                         );
+                    }
 
-                System.exit(0);
-            }
 
+                } else {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Sorry, a profile with that name already exists. \n" +
+                                    "Please try logging in.",
+                            "profile already exists",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+
+                    System.exit(0);
+                }
+
+        }while(conf1 != 1);
 
         }else{
             // selected "Cancel"-option -MF
