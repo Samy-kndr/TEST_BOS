@@ -61,6 +61,7 @@ public class Main {
 
         }else if(choice == "Register") {
 
+            // do-while zur Registrierung abfrage - SK
             do{
 
                 String userName = JOptionPane.showInputDialog(
