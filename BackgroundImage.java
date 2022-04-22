@@ -1,13 +1,10 @@
-package UI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-class BackgroundImageJFrame extends JFrame {
-    JButton b1;
-    JLabel l1;
+public class BackgroundImage extends JFrame {
 
-    public BackgroundImageJFrame() {
+    public BackgroundImage() {
         setSize(400, 400);
         setVisible(true);
         setLayout(new BorderLayout());
@@ -21,7 +18,4 @@ class BackgroundImageJFrame extends JFrame {
         setSize(1920,1080);
     }
 
-    public static void main(String[] args) {
-        new BackgroundImageJFrame();
-    }
 }
